@@ -29,8 +29,11 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">  -->
+<!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">  
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src *">
+-->
+        <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data:">
+
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -65,9 +68,17 @@
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8">
-        header('content-type: application/json; charset=utf-8');
-        header("access-control-allow-origin: *");
         $(document).ready(function() {
+
+        	/*
+        		http://stackoverflow.com/questions/37398695/cors-cordova-issues-with-access-control-allow-origin
+        		http://stackoverflow.com/questions/28547288/no-access-control-allow-origin-header-is-present-on-the-requested-resource-err
+
+        		https://www.google.fr/webhp?sourceid=chrome-instant&rlz=1C1ASUC_enFR601FR601&ion=1&espv=2&ie=UTF-8#q=ajax+get+http+server+simplehttprequesthandler&*
+        	 */
+
+	    //    header("content-type: application/data; charset=utf-8");
+	    //    header("access-control-allow-origin: *");
             // Lorsque je soumets le formulaire
             $('#login').on('submit', function(e) {
                 e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
@@ -83,17 +94,55 @@
                     alert('Les champs doivent êtres remplis');
                 } else {
                     // Envoi de la requête HTTP en mode asynchrone
-                    $.ajax({
+                /*    $.ajax({
                         url: $this.attr('action'), // Le nom du fichier indiqué dans le formulaire
                         type: $this.attr('method'), // La méthode indiquée dans le formulaire (get ou post)
                         data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                        success: function(html) { // Je récupère la réponse du fichier PHP
-                            alert(html); // J'affiche cette réponse
+                        success: function(data) { // Je récupère la réponse du serveur
+                            console.log(data); // J'affiche cette réponse
                         }
-                    });
+                    });	*/
+                    xml_http_post($this.attr('action'), $this.serialize(), alertItsWorking);
                 }
             });
         });
+
+	    function xml_http_post(url, data, callback) {
+		    var req = false;
+		    try {
+		        // Firefox, Opera 8.0+, Safari
+		        req = new XMLHttpRequest();
+		    }
+		    catch (e) {
+		        // Internet Explorer
+		        try {
+		            req = new ActiveXObject("Msxml2.XMLHTTP");
+		        }
+		        catch (e) {
+		            try {
+		                req = new ActiveXObject("Microsoft.XMLHTTP");
+		            }
+		            catch (e) {
+		                alert("Your browser does not support AJAX!");
+		                return false;
+		            }
+		        }
+		    }
+
+            url = url+"?"+data;
+            console.log(url);
+		    req.open("GET", url, true);
+		    req.onreadystatechange = function() {
+		        if (req.readyState == 4) {
+		            callback(req);
+		        }
+		    }
+		    req.send(data);
+		}
+
+		function alertItsWorking(req){
+			console.log(req);
+		}
         </script>
     </body>
 
