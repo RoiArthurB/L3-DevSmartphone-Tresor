@@ -17,7 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html lang="fr">
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -28,6 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -37,17 +38,23 @@
     </head>
 
     <body>
+        <h1>Chasse au trésor</h1>
         <form action="http://localhost:8000/" method="GET">
             <input type="hidden" name="cmd" value="addteammember">
 
+            <label for="pseudo">Pseudo:</label> <br>
+            <INPUT id="pseudo" type="text" name="name">
+
+            <BR><BR>
+
+            <!-- Team Button -->
             <input id="team1" type="radio" name="team" VALUE="equipe1" />
             <label for="team1">Equipe 1</label>
-            <br>
+            
             <input id="team2" type="radio" name="team" VALUE="equipe2" />
-            <label for="team2">Equipe LICENSE-2</label>
+            <label for="team2">Equipe 2</label>
 
-            <BR>
-            Nom<INPUT type=text name="name"><BR>
+            <BR><BR>
 
             <INPUT type="submit" value="Envoyer">
         </form>
