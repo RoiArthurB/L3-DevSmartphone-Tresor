@@ -39,15 +39,21 @@
     <body>
         <form action="http://localhost:8000/" method="GET">
             <input type="hidden" name="cmd" value="addteammember">
-            <SELECT name="team">
-                <OPTION VALUE="equipe1">Equipe 1</OPTION>
-                <OPTION VALUE="equipe2">Equipe 2</OPTION>
-            </SELECT>
+
+            <input id="team1" type="radio" name="team" VALUE="equipe1" />
+            <label for="team1">Equipe 1</label>
+            <br>
+            <input id="team2" type="radio" name="team" VALUE="equipe2" />
+            <label for="team2">Equipe LICENSE-2</label>
+
             <BR>
             Nom<INPUT type=text name="name"><BR>
 
             <INPUT type="submit" value="Envoyer">
         </form>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </body>
     
 </html>
