@@ -29,7 +29,8 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+<!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">  -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -50,7 +51,7 @@
             <!-- Team Button -->
             <input id="team1" type="radio" name="team" VALUE="equipe1" />
             <label for="team1">Equipe 1</label>
-            
+
             <input id="team2" type="radio" name="team" VALUE="equipe2" />
             <label for="team2">Equipe 2</label>
 
@@ -61,6 +62,39 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
+        $(document).ready(function() {
+            // Lorsque je soumets le formulaire
+            $('#login').on('submit', function(e) {
+                e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+
+                var $this = $(this); // L'objet jQuery du formulaire
+
+                // Je récupère les valeurs
+                var pseudo = $('#pseudo').val();
+
+                // Je vérifie une première fois pour ne pas lancer la requête HTTP
+                // si je sais que mon PHP renverra une erreur
+                if(pseudo === '') {
+                    alert('Les champs doivent êtres remplis');
+                } else {
+                    // Envoi de la requête HTTP en mode asynchrone
+                    $.ajax({
+                        url: $this.attr('action'), // Le nom du fichier indiqué dans le formulaire
+                        type: $this.attr('method'), // La méthode indiquée dans le formulaire (get ou post)
+                        data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                        success: function(html) { // Je récupère la réponse du fichier PHP
+                            alert(html); // J'affiche cette réponse
+                        }
+                    });
+                }
+            });
+        });
+        </script>
     </body>
-    
+
 </html>

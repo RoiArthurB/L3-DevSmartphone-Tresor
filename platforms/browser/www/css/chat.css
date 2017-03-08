@@ -69,22 +69,21 @@ body {
     }
 }
 
-body{
-    display: block;
-    padding: 35vh 0;
-}
-
 h1 {
     font-size:24px;
     font-weight:normal;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-form{
     margin:0px;
     overflow:visible;
     padding:0px;
     text-align:center;
+}
+
+span.pseudo{
+    color: red;
+    margin-right: 1em;
+}
+
+input {
+    width: 100%;
+    height: 50px;
 }

@@ -27,8 +27,8 @@
             * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
-        --
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src *"> -->
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="banniere1_2"> <!-- Div contenant le bouton vers le chat -->
-
+               
         </div>
 
         <hr>
@@ -55,7 +55,7 @@
 
         </div>
         <div class="trouve"> <!-- Div contenant le message d'information : endroit trouvé ou non trouvé. -->
-         <hr>
+         <hr>   
             <br>
         <h1 id="texttrouve">X NON TROUVE</h1>
 
@@ -76,7 +76,8 @@
         <script type="text/javascript" src="js/index.js"></script>
 
         <!-- Script permettant d'afficher la map, à l'aide de l'API Google. -->
-        <script type="text/javascript" charset="utf-8">
+        <script> 
+
             function initMap() {
                 var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
                 var map = new google.maps.Map(document.getElementById('map'), { // On sélectionne la div ayant l'ID 'map'
@@ -89,7 +90,8 @@
             });*/
           }
         </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeP-KgLyAKa9SGqw4WiHZhKCIDLIpCnuo&callback=initMap">
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeP-KgLyAKa9SGqw4WiHZhKCIDLIpCnuo&callback=initMap">
     </script>
 
     </body>
