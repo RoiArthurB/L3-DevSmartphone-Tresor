@@ -1,0 +1,6 @@
+        parseNoms: function(){
+        var tuto = "toto,tutu,tata,tutur,";
+        var noms = tuto.split(",");
+        alert(noms[0]);
+},
+        
