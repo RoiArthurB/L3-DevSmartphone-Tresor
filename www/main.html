@@ -35,51 +35,46 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <title>Map Tresor</title>
     </head>
-    <body><div class="banniere">
+    <body>
 
-
-        <div class="banniere1_1"> <!-- Div contenant les informations sur le joueur -->
-            <h2>Pseudo : <span id="playerName"></span></h2>
-            <h2>Team : <span id="playerTeam"></span><script>sessionStorage.getItem("team")</script></h2>
+        <!-- Div contenant les informations sur le joueur -->
+        <div id="banniere" class="banniere bloc">
+            <div class="half-header"> 
+                <p>Pseudo : <span id="playerName">Toto</span></p>
+            </div>
+            <div class="half-header">
+                <p>Team : <span id="playerTeam">Equipe1</span></p>
+            </div>
         </div>
 
-        <div class="banniere1_2"> <!-- Div contenant le bouton vers le chat -->
-            <a href="chat.html">Click me </a>
+        <!-- balise contenant la map de jeu. Elle est affichée à l'aide du script situé en bas de cette page (API Google) -->
+        <div id="map" class="bloc"></div>
+        
+        <!-- Div contenant les informations sur le lieu à trouver. -->
+        <div class="trouve bloc"> 
+            <h1>Prochain but Plage des Minimes 2 </h1>
         </div>
 
-        <hr>
-        </div>
-        <div id="map"> <!-- Div contenant la map de jeu. Elle est affichée à l'aide du script situé en bas de cette page (API Google) -->
-
-
-
-        </div>
-        <div class="trouve"> <!-- Div contenant le message d'information : endroit trouvé ou non trouvé. -->
-         <hr>
-            <br>
-        <h1 id="texttrouve">X NON TROUVE</h1>
-
+        <div id="chat" class="bloc">
+            <span>Dernie message reçu : </span><p id="lastMessage"><em>Bougez pas, j'y suis presque</em></p>
         </div>
 
+        <form id="chatForm" url="http://localhost:8000/" method="GET">
+            <input type="hidden" name="cmd" value="sendmessagetoteam" />
+            <input id="formTeam" type="hidden" name="team" value="equipe1" />
 
-
-        <div class="infos_lieu"> <!-- Div contenant les informations sur le lieu à trouver. -->
-
-        <hr>
-        <h2>Infos sur le lieu</h2>
-
-        <p class="info">Nom de l'endroit</p>
-
-        </div>
-
+            <input id="formText" type="text" name="message" />
+            <input type="submit" value=">" />
+        </form>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/toolsRequest.js"></script>
-        <!-- Script permettant d'afficher la map, à l'aide de l'API Google. -->
+
         <script type="text/javascript" charset="utf-8">
+        // Script permettant d'afficher la map, à l'aide de l'API Google.
         function initMap() {
             var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
                 var map = new google.maps.Map(document.getElementById('map'), { // On sélectionne la div ayant l'ID 'map'
@@ -95,7 +90,28 @@
         $(function () {
             $("span#playerName").text( sessionStorage.getItem("name") );
             $("span#playerTeam").text( sessionStorage.getItem("team") );
+            $("#formTeam").val( sessionStorage.getItem("team") );
+  //          $("#lastMessage").html( "<em>"+sessionStorage.getItem("lastMessage")+"</em>" );
+
+            // Lorsque je soumets le formulaire
+            $('#chatForm').on('submit', function(e) {
+                e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+
+                var $this = $(this); // L'objet jQuery du formulaire
+
+                // Je récupère les valeurs
+                var textChat = $('#formText').val();
+
+                // Je vérifie une première fois pour ne pas lancer la requête HTTP
+                if(textChat !== '') {
+                    // Envoi de la requête HTTP en mode asynchrone
+                    xml_http_post($this.attr('url'), $this.serialize(), alertItsWorking);
+                }
+            });
+
         });
+
+
         </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeP-KgLyAKa9SGqw4WiHZhKCIDLIpCnuo&callback=initMap">
     </script>

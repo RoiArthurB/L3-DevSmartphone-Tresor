@@ -44,7 +44,7 @@
     <body>
         <h1>Chasse au trésor</h1>
         <form id="login" url="http://localhost:8000/" method="GET">
-            <input type="hidden" name="cmd" value="addteammember">
+            <input type="hidden" name="cmd" value="addteammember" />
 
             <label for="pseudo">Pseudo:</label> <br>
             <INPUT id="pseudo" type="text" name="name">
@@ -81,7 +81,6 @@
                 var team = $('#team').val();
 
                 // Je vérifie une première fois pour ne pas lancer la requête HTTP
-                // si je sais que mon PHP renverra une erreur
                 if(pseudo === '') {
                     alert('Les champs doivent êtres remplis');
                 } else {
