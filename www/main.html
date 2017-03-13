@@ -39,8 +39,8 @@
 
 
         <div class="banniere1_1"> <!-- Div contenant les informations sur le joueur -->
-            <h2>Pseudo : Alan</h2>
-            <h2>Team : 2</h2>
+            <h2>Pseudo : <span id="playerName"></span></h2>
+            <h2>Team : <span id="playerTeam"></span><script>sessionStorage.getItem("team")</script></h2>
         </div>
 
         <div class="banniere1_2"> <!-- Div contenant le bouton vers le chat -->
@@ -75,19 +75,26 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
         <!-- Script permettant d'afficher la map, à l'aide de l'API Google. -->
         <script type="text/javascript" charset="utf-8">
-            function initMap() {
-                var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
+        function initMap() {
+            var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
                 var map = new google.maps.Map(document.getElementById('map'), { // On sélectionne la div ayant l'ID 'map'
                 zoom: 14,
                 center: larochelle
-                });
+            });
             /*var marker = new google.maps.Marker({
-                position: larochelle,
-              map: map
+            position: larochelle,
+            map: map
             });*/
-          }
+        }
+
+        $(function () {
+            $("span#playerName").text( sessionStorage.getItem("name") );
+            $("span#playerTeam").text( sessionStorage.getItem("team") );
+        });
         </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeP-KgLyAKa9SGqw4WiHZhKCIDLIpCnuo&callback=initMap">
     </script>
