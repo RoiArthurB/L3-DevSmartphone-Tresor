@@ -85,9 +85,24 @@
             <p><span class="pseudo">Toto</span>Every accout is a bot, except you</p>
         </div>
 
-        <form action="#">
+        <form id="login" url="http://localhost:8000/" method="GET">
+            <input type="hidden" name="cmd" value="addteammember">
             <input type="text" />
         </form>
+
+        <script type="text/javascript" src="cordova.js"></script>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/toolsRequest.js"></script>
+        <script type="text/javascript">
+            
+            setInterval(function() {
+                // setLocation
+                dataNewMessage = "cmd=setLocation&team="+sessionStorage.getItem("team")+"&name="+sessionStorage.getItem("name")+"&latitude="+46.142044+"&longitude="+(-1.1526);
+                xml_http_post(url, dataNewMessage, console.log);
+            }, 1000*10 );// Minute/6);
+
+        </script>
     </body>
 
 </html>
