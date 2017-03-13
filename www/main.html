@@ -52,20 +52,22 @@
         
         <!-- Div contenant les informations sur le lieu à trouver. -->
         <div class="trouve bloc"> 
-            <h1>Prochain but Plage des Minimes 2 </h1>
+            <h1>Prochain but Plage des Minimes 2</h1>
         </div>
 
-        <div id="chat" class="bloc">
-            <span>Dernie message reçu : </span><p id="lastMessage"><em>Bougez pas, j'y suis presque</em></p>
+        <div id="footer">
+            <div id="chat" class="bloc">
+                <span>Dernie message reçu : </span><p id="lastMessage"><em>Bougez pas, j'y suis presque</em></p>
+            </div>
+
+            <form id="chatForm" url="http://localhost:8000/" method="GET">
+                <input type="hidden" name="cmd" value="sendmessagetoteam" />
+                <input id="formTeam" type="hidden" name="team" value="equipe1" />
+
+                <input id="formText" type="text" name="message" />
+                <input type="submit" value=">" />
+            </form>
         </div>
-
-        <form id="chatForm" url="http://localhost:8000/" method="GET">
-            <input type="hidden" name="cmd" value="sendmessagetoteam" />
-            <input id="formTeam" type="hidden" name="team" value="equipe1" />
-
-            <input id="formText" type="text" name="message" />
-            <input type="submit" value=">" />
-        </form>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 

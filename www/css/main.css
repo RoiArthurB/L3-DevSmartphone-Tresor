@@ -70,6 +70,7 @@ h1 {
     height:10%;
     width:100%;
     
+    margin-bottom: 100px;
 }
 
 .trouve h1{
@@ -78,6 +79,16 @@ h1 {
 
 #chat{
     margin: 0px 10px;
+}
+
+#footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+
+    background-color: #DADADA;
+    border-top: 3px solid rgb(30,205,151);
+    border-radius: 10px;
 }
 
 .bloc:not(#banniere){
@@ -99,7 +110,7 @@ input[type="text"] {
   -o-text-overflow: clip;
   text-overflow: clip;
   letter-spacing: 1px;
-  background: rgba(0,0,0,0);
+  background: #EEE;
   -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
