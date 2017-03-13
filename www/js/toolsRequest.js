@@ -48,7 +48,7 @@ function xml_http_post(url, data, callback) {
 
 function alertItsWorking(req){
     console.log(req);
-    var pseudo = $('#pseudo').val();
-    var team = $('input[name=team]:checked').val();
-  document.location.href="main.php?name="+pseudo+"&team="+team
+    sessionStorage.setItem("name", $('#pseudo').val() );
+    sessionStorage.setItem("team", $('input[name=team]:checked').val() );
+    document.location.href="main.html";
 }
