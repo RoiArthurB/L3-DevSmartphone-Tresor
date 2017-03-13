@@ -52,3 +52,27 @@ function alertItsWorking(req){
     sessionStorage.setItem("team", $('input[name=team]:checked').val() );
     document.location.href="main.html";
 }
+
+
+/*  
+    +---------------------------------------------------+
+    |   Toutes les requetes continus vers le serveur    |
+    +---------------------------------------------------+
+*/
+
+requestInterval = 1000; //ms
+url="http://localhost:8000/";
+
+// Position du joueur
+//location = ;
+
+
+setInterval(function() {
+    // setLocation
+    dataLocation = "cmd=setLocation&team="+sessionStorage.getItem("team")+"&name="+sessionStorage.getItem("name")+"&latitude="+46.142044+"&longitude="+(-1.1526);
+    xml_http_post(url, dataLocation, console.log);
+
+    // getNextGoal
+    dataGoal = "cmd=getnextgoal&team="+sessionStorage.getItem("team");
+    xml_http_post(url, dataGoal, console.log);
+}, 1000*10 );// Minute/6);
