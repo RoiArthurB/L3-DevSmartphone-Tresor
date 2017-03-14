@@ -34,9 +34,6 @@ class HTTPHandler (SimpleHTTPRequestHandler):
                     if cmd=="listteammembers":
                         team  =   args["team"]
                         return self.list_team_members(team)
-                
-                    if cmd=="listteam":
-                        return self.list_team()
                                        
                     if cmd=="setlocalization":
                         name    =   args["name"]
@@ -58,6 +55,11 @@ class HTTPHandler (SimpleHTTPRequestHandler):
                     if cmd=="getlastmessagetoteam":
                         team    =   args["team"]
                         return self.get_last_message_to_team(team)
+
+                    if cmd=="getlastmessagetoteammember":
+                        team    =   args["team"]
+                        name    =   args["name"]
+                        return self.get_last_message_to_team_member(team,name)
                     
                     if cmd=="getnextgoal":
                         team    =   args["team"]
@@ -98,6 +100,13 @@ class HTTPHandler (SimpleHTTPRequestHandler):
 #            self.wfile.write('<h2>dans l\'equipe %s</h2>' % team)
             return None
             
+        def get_last_message_to_team_member(self,team,name):
+            self.reponse()
+            msg=model.get_last_message_to_team_member(team,name)
+            self.wfile.write('%s' % msg)
+#            self.wfile.write('<h2>dans l\'equipe %s</h2>' % team)
+            return None
+            
         def add_team_member(self,team,name):
             self.reponse()
             model.add_team_member(team, name)
@@ -116,13 +125,6 @@ class HTTPHandler (SimpleHTTPRequestHandler):
         def list_team_members(self,team):
             self.reponse()
             liste=model.list_team_members(team)
-            for i in liste:
-                self.wfile.write('%s,' % i)
-            return None
-
-        def list_team(self):
-            self.reponse()
-            liste=model.list_team()
             for i in liste:
                 self.wfile.write('%s,' % i)
             return None
