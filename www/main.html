@@ -38,7 +38,7 @@
     <body>
 
         <!-- Div contenant les informations sur le joueur -->
-        <div id="banniere" class="banniere bloc">
+        <div id="banniere" class="banniere bloc"> 
             <div class="half-header"> 
                 <p>Pseudo : <span id="playerName">Toto</span></p>
             </div>
@@ -68,27 +68,15 @@
                 <input type="submit" value=">" />
             </form>
         </div>
+
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/toolsRequest.js"></script>
 
         <script type="text/javascript" charset="utf-8">
-        // Script permettant d'afficher la map, à l'aide de l'API Google.
-        function initMap() {
-            var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
-                var map = new google.maps.Map(document.getElementById('map'), { // On sélectionne la div ayant l'ID 'map'
-                zoom: 14,
-                center: larochelle
-            });
-            /*var marker = new google.maps.Marker({
-            position: larochelle,
-            map: map
-            });*/
-        }
-
         $(function () {
             $("span#playerName").text( sessionStorage.getItem("name") );
             $("span#playerTeam").text( sessionStorage.getItem("team") );
@@ -111,8 +99,56 @@
                 }
             });
 
+            /*
+                +-------------------+
+                |   Geolocalisation |
+                +-------------------+
+            */    
+            var setLocationPlayer = function(position) {
+                sessionStorage.setItem("lon", position.coords.longitude);
+                sessionStorage.setItem("lat", position.coords.latitude);
+            };
+
+            navigator.geolocation.getCurrentPosition(setLocationPlayer, console.log);
+            
+
+            /*  
+            +---------------------------------------------------+
+            |   Toutes les requetes continus vers le serveur    |
+            +---------------------------------------------------+
+            */
+            
+            requestInterval = 1000; //ms
+            url="http://localhost:8000/";
+
+            setInterval(function() {
+                // setLocation
+                dataLocation = "cmd=setLocation&team="+sessionStorage.getItem("team")+"&name="+sessionStorage.getItem("name")+"&latitude="+(sessionStorage.getItem("lat"))+"&longitude="+(sessionStorage.getItem("lon"));
+                xml_http_post(url, dataLocation, console.log);
+
+                // getNextGoal
+                dataGoal = "cmd=getnextgoal&team="+sessionStorage.getItem("team");
+                xml_http_post(url, dataGoal, console.log);
+            }, 1000*10 );// Minute/6);
+
+            // To add the marker to the map, call setMap();
+            marker.setMap(map);
         });
 
+        // Script permettant d'afficher la map, à l'aide de l'API Google.
+        function initMap() {
+            var larochelle = {lat: 46.166, lng: -1.15}; // Coordonnées de La Rochelle
+            var map = new google.maps.Map(document.getElementById('map'), { // On sélectionne la div ayant l'ID 'map'
+                zoom: 14,
+                center: larochelle
+            });
+
+            var playerLatLng = {lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lon")};
+            var marker = new google.maps.Marker({
+                position: playerLatLng,
+                map: map
+            });
+        }
 
         </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeP-KgLyAKa9SGqw4WiHZhKCIDLIpCnuo&callback=initMap">
